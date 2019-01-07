@@ -4,9 +4,21 @@
   become_method: sudo
   tasks:
     - name: ensure nginx is at the latest version
-      apt: name=nginx state=latest
+      apt:
+        name: nginx
+        state: latest
     - name: start nginx
       service:
-          name: nginx
-          state: started
+        name: nginx
+        state: started
+    - name: copy the locations
+      copy:
+        src: locations
+        dest: /etc/nginx/sites-available/quackup.locations
+      register: locations
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+      when: locations.changed
 ...
