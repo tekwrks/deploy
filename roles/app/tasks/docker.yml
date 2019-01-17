@@ -1,20 +1,23 @@
 ---
-- hosts: quackup
 
-  tasks:
+- name: Ensure docker deamon is running
+  become: true
+  service:
+    name: docker
+    state: started
 
-    - name: copy Makefile
-      copy:
-        src: Makefile
-        dest: ~/quackup
+- name: Copy docker configuration
+  become: true
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  register: config
 
-    - name: copy docker-compose.yml
-      copy:
-        src: docker-compose.yml
-        dest: ~/quackup
+- name: Restart docker
+  when: config.changed
+  become: true
+  service:
+    name: docker
+    state: restarted
 
-    - name: update swarm
-      shell: "cd quackup && make up && cd .."
-      become: yes
-      
 ...

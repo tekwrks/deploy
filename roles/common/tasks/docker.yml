@@ -1,21 +1,54 @@
 ---
-- hosts: quackup
+
+- name: Update the apt package index
   become: yes
-  become_method: sudo
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
 
-  tasks:
+- name: Install packages for apt add repository over HTTPS
+  become: yes
+  apt:
+    name: "{{ packagesdep }}"
+    force_apt_get: yes
+    state: latest
+    update_cache: yes
+  vars:
+    packagesdep:
+    - git
+    - apt-transport-https
+    - ca-certificates
+    - wget
+    - software-properties-common
+    - gnupg2
+    - curl
 
-    - name: Add Docker GPG key
-      apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+- name: Add Apt signing key from official docker repo
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
 
-    - name: Add Docker APT repository
-      apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
+- name: Add docker official repository for Debian Stretch
+  become: yes
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+    state: present
 
-    - name: Install list of packages
-      apt:
-        name: ['apt-transport-https','ca-certificates','curl','software-properties-common','docker-ce']
-        state: present
-        update_cache: yes
+- name: Index new repo into the cache
+  become: yes
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Install docker
+  become: yes
+  apt:
+    name: "docker-ce"
+    state: latest
 
 ...

@@ -1,18 +1,15 @@
 ---
-- hosts: quackup
+
+- name: ensure nginx is at the latest version
   become: yes
-  become_method: sudo
+  apt:
+    name: nginx
+    state: latest
 
-  tasks:
-
-    - name: ensure nginx is at the latest version
-      apt:
-        name: nginx
-        state: latest
-
-    - name: start nginx
-      service:
-        name: nginx
-        state: started
+- name: start nginx
+  become: yes
+  service:
+    name: nginx
+    state: started
 
 ...

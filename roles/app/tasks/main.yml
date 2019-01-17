@@ -1,0 +1,11 @@
+- name: setup docker
+  include: docker.yml
+
+- name: copy assets
+  include: assets.yml
+
+- name: setup app
+  include: app.yml
+
+- name: setup nginx proxy
+  include: nginx.yml
