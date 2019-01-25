@@ -5,10 +5,12 @@
   proxy_cache_bypass $http_upgrade;
   proxy_pass_request_body on;
 
+  # static assets
   location /assets {
     proxy_pass http://0.0.0.0:3000;
   }
 
+  # website paths
   location = /privacy {
     proxy_pass http://0.0.0.0:3000;
   }
@@ -16,10 +18,10 @@
     proxy_pass http://0.0.0.0:3000;
   }
 
+  # website assets
   location /static {
     proxy_pass http://0.0.0.0:3000;
   }
   location = /service-worker.js {
     proxy_pass http://0.0.0.0:3000;
   }
-

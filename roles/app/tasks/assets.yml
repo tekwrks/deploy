@@ -2,7 +2,7 @@
 
 - name: copy the assets folder
   copy:
-    src: ./assets
-    dest: ~/quackup
+    src: assets
+    dest: "{{ ansible_env.HOME }}"
 
 ...

@@ -1,17 +1,23 @@
 ---
 
-- name: copy Makefile
+- name: Copy Makefile
   copy:
     src: Makefile
-    dest: ~/quackup
+    dest: "{{ ansible_env.HOME }}"
 
-- name: copy docker-compose.yml
+- name: Copy docker-compose.yml
   copy:
     src: docker-compose.yml
-    dest: ~/quackup
+    dest: "{{ ansible_env.HOME }}"
 
-- name: update swarm
+- name: Copy proxy nginx.conf
+  copy:
+    src: nginx.conf
+    dest: "{{ ansible_env.HOME }}"
+
+- name: Update docker swarm deployment
   become: yes
-  shell: "cd quackup && make up && cd .."
+  run_once: true
+  shell: "make up"
 
 ...
