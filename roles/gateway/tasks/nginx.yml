@@ -11,13 +11,7 @@
   copy:
     src: locations
     dest: /etc/nginx/sites-available/quackup.locations
-  register: locations
-
-- name: restart nginx
-  when: locations.changed
-  become: yes
-  service:
-    name: nginx
-    state: restarted
+  notify:
+    - restart nginx
 
 ...

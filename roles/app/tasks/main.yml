@@ -6,6 +6,3 @@
 
 - name: setup app
   include: app.yml
-
-- name: setup nginx proxy
-  include: nginx.yml

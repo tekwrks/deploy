@@ -2,6 +2,9 @@
 ATLAS
 CALYPSO
 
+[gateway]
+ATLAS
+
 [managers]
 ATLAS
 CALYPSO
