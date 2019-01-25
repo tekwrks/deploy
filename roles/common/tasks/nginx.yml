@@ -1,10 +1,30 @@
 ---
 
+- name: Update the apt package index
+  become: yes
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
 - name: ensure nginx is at the latest version
   become: yes
   apt:
     name: nginx
     state: latest
+
+- name: copy security defaults
+  become: yes
+  copy:
+    src: security
+    dest: /etc/nginx
+
+- name: copy nginx.conf
+  become: yes
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx
 
 - name: start nginx
   become: yes
