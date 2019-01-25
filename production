@@ -1,2 +1,9 @@
 [app]
 ATLAS
+CALYPSO
+
+[managers]
+ATLAS
+CALYPSO
+
+[workers]
