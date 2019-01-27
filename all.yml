@@ -1,0 +1,12 @@
+---
+
+- name: apply common configuration to all nodes
+  hosts: all
+  roles:
+    - common
+
+- import_playbook: app.yml
+
+- import_playbook: gateway.yml
+
+...

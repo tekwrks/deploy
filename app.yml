@@ -1,0 +1,8 @@
+---
+
+- name: configure and deploy the application servers
+  hosts: app
+  roles:
+    - app
+
+...

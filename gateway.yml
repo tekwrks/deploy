@@ -1,0 +1,8 @@
+---
+
+- name: configure gateway servers
+  hosts: gateway
+  roles:
+    - gateway
+
+...
