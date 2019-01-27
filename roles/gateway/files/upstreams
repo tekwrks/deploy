@@ -1,0 +1,5 @@
+
+  upstream docker {
+    server 10.128.0.2:3000;
+    server 10.128.0.4:3000;
+  }

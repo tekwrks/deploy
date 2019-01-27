@@ -6,6 +6,14 @@
     name: nginx
     state: started
 
+- name: copy upstreams
+  become: yes
+  copy:
+    src: upstreams
+    dest: /etc/nginx/sites-available/quackup.upstreams
+  notify:
+    - restart nginx
+
 - name: copy the locations
   become: yes
   copy:
