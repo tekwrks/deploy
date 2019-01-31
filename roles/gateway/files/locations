@@ -4,8 +4,7 @@
   proxy_set_header Host $host;
   proxy_cache_bypass $http_upgrade;
   proxy_pass_request_body on;
-
-  # add_header X-Upstream $upstream_addr;
+  proxy_redirect off;
 
   # static assets
   location /assets {
@@ -25,5 +24,8 @@
     proxy_pass http://docker;
   }
   location = /service-worker.js {
+    proxy_pass http://docker;
+  }
+  location /favicon {
     proxy_pass http://docker;
   }
