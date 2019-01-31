@@ -10,7 +10,7 @@
   become: yes
   copy:
     src: upstreams
-    dest: /etc/nginx/sites-available/quackup.upstreams
+    dest: /etc/nginx/upstreams/quackup.upstreams
   notify:
     - restart nginx
 
@@ -18,7 +18,7 @@
   become: yes
   copy:
     src: locations
-    dest: /etc/nginx/sites-available/quackup.locations
+    dest: /etc/nginx/locations/quackup.locations
   notify:
     - restart nginx
 
